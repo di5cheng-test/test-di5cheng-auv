@@ -19,7 +19,7 @@ prelist_area = sheet_area.col_values(1)
 sheet = workbook.sheet_by_name(r'姓名')
 first_name = sheet.col_values(0)
 second_name = sheet.col_values(1)
-pic = random.choice(random.choice(config.get_picture()))
+pic = random.choice(config.get_picture())
 
 
 class Random_param(object):
