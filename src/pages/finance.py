@@ -8,7 +8,6 @@ null = None
 
 url_finance = config.get_finance_url()
 
-
 class Finance(object):
     def finance_login(self, username, password):
         # 财务登录
@@ -16,15 +15,16 @@ class Finance(object):
         json = {"username": username, "password": password}
         r = requests.post(url=url, json=json)
         response = eval(r.text)
+        MyLog().logger().info(response)
         return response['login']
 
-    def finance_UserInfo(self, token, admin_id):
+    def finance_UserInfo(self, cookie):
         # 财务登录账号信息
         url = url_finance + "xf/sy/busi.do?md=40&cmd=52"
-        headers = {"token": token}
-        json = {"admin_id": admin_id}
-        r = requests.post(url=url, headers=headers, json=json)
+        headers = {"token": cookie}
+        r = requests.post(url=url, headers=headers)
         response = eval(r.text)
+        MyLog().logger().info(response)
         return response
 
     def finance_CheckList(self, cookie, g, h, f=None):
@@ -39,10 +39,10 @@ class Finance(object):
             del json["f"]
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
-    def finance_PayMoney_param(self, a, b, c=None, d=3, e=None):
+    def finance_PayMoney_param(self, a, b, c="付款完成", d=3, e=None):
         # 财务确认付款参数
         json = {"a": a,  # a：计算单id
                 "b": b,  # b：回执单链接
@@ -63,11 +63,11 @@ class Finance(object):
         json = param
         r = requests.post(url=url, headers=headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         if response == {"code": 0}:
-            MyLog().sendlog('财务确认付款成功！')
+            MyLog().logger().info('财务确认付款成功！')
         else:
-            MyLog().sendlog('财务确认付款失败！')
+            MyLog().logger().info('财务确认付款失败！')
         return response
 
     def finance_Check(self, cookie, a, e=None, b=0, c=None, d=None):
@@ -88,7 +88,7 @@ class Finance(object):
             del json["e"]
         r = requests.post(url=url, headers=headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     # 获取复核员已审核的对账单的详情
@@ -98,6 +98,7 @@ class Finance(object):
         json = {"a": account_id}
         r = requests.post(url=url, headers=headers, json=json)
         response = eval(r.text)
+        MyLog().logger().info(response)
         return response['data']
 
     # 财务系统中，获取货源详情
@@ -107,5 +108,5 @@ class Finance(object):
         json = {"a": source_id}
         r = requests.post(url=url, headers=headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response

@@ -2,13 +2,13 @@
 import requests
 import random
 import time
-from config import global_parameter
+from src.common import config
 from src.common import random_param
 from src.common.logger import MyLog
 
 global null
 null = None
-url_shipper = global_parameter.shipper
+url_shipper = config.get_shipper_url()
 
 
 class Shipper(object):
@@ -19,12 +19,10 @@ class Shipper(object):
         param = {"variables": {"input": {"mobile": mobile, "password": password}}}
         r = requests.post(url=url, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         if "errors" in response:
-            MyLog().sendlog("登录失败")
             return response
         else:
-            MyLog().sendlog("登录成功")
             return response["data"]["login"]
 
     def shipper_editShipperPassword(self, cookie, mobile, code, password):
@@ -34,7 +32,7 @@ class Shipper(object):
         param = {"variables": {"input": {"mobile": mobile, "code": code, "password": password, "sms_type": 2}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def shipper_getcompanyInfo(self, cookie):
@@ -43,7 +41,7 @@ class Shipper(object):
         f_headers = {"token": cookie}
         r = requests.post(url=url, headers=f_headers)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def inquire_param(self, cookie, company_name):
@@ -64,7 +62,7 @@ class Shipper(object):
         param["send_source_num"] = random.randrange(100, 5000) * 1000
         param["source_price"] = random.randrange(100, 5000) * 100
         param["target_price"] = random.randrange(100, 5000) * 100
-        MyLog().sendlog(param)
+        MyLog().logger().info(param)
         return param
 
     def shipper_sendInquire(self, cookie, param):
@@ -75,7 +73,7 @@ class Shipper(object):
         json = {"variables": {"input": param}}
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def shipper_getInquires(self, cookie, type_num, time_num):
@@ -87,7 +85,7 @@ class Shipper(object):
         param = {"variables": {"input": {"type": type_num, "time": time_num}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def shipper_confirmInquire(self, cookie, inquire_id, isConfirm):
@@ -99,7 +97,7 @@ class Shipper(object):
         param = {"variables": {"input": {"inquire_id": inquire_id, "isConfirm": isConfirm}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def shipper_location(self, cookie, parent_id):
@@ -127,7 +125,7 @@ class Shipper(object):
         area_name = area["region_name"]
         area_id = area["region_id"]
         location = province_name + "-" + city_name + "-" + area_name
-        MyLog().sendlog(location)
+        MyLog().logger().info(location)
         return location
 
     def shipper_getSources(self, cookie, type_num, time_num):
@@ -137,7 +135,7 @@ class Shipper(object):
         param = {"d": type_num, "e": time_num}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def shipper_getCarsMapBySourceId(self, cookie, sourceId):
@@ -147,7 +145,7 @@ class Shipper(object):
         param = {"variables": {"id": sourceId}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def shipper_getCarsBySourceId(self, cookie, sourceId, time):
@@ -157,7 +155,7 @@ class Shipper(object):
         param = {"variables": {"input": {"id": sourceId, "time": time}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def baseinfo_param(self, nikename=None, gender=None, birthday=None):
@@ -183,7 +181,7 @@ class Shipper(object):
         param["nikename"] = random_param.Random_param().create_name()
         param["gender"] = random.randint(1, 2)
         param["birthday"] = int(time.time() * 1000)
-        MyLog().sendlog(param)
+        MyLog().logger().info(param)
         return param
 
     def shipper_editBaseCompanyInfo(self, cookie, param):
@@ -193,7 +191,7 @@ class Shipper(object):
         json = {"variables": {"input": param}}
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def companyinfo_param(self, cookie):
@@ -211,7 +209,7 @@ class Shipper(object):
         param["business"] = "J4697D6A730D93767B2"
         param["business_2"] = "JAABE2E2A70D9377CBC"
         param["business_3"] = "J4697D6A730D93767B2"
-        MyLog().sendlog(param)
+        MyLog().logger().info(param)
         return param
 
     def shipper_editCompanyInfo(self, cookie, param):
@@ -221,7 +219,7 @@ class Shipper(object):
         json = {"variables": {"input": param}}
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def shipper_getsourcelist(self, cookie, type, time):
@@ -232,7 +230,7 @@ class Shipper(object):
         json = {"d": type, "e": time}
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def shipper_getSourceInfo(self, cookie, SourceId):
@@ -242,10 +240,10 @@ class Shipper(object):
         json = {"a": SourceId}
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
-    def shipper_getContractList(self, cookie, company_id, time, online, sign, type):
+    def shipper_getContractList(self, cookie, a, b, c, e, f, d=None):
         # 货主获取电子合同列表
         # 参数名	必选	类型	长度	说明
         # a	是	string	64	公司id
@@ -255,8 +253,10 @@ class Shipper(object):
         # e	否	int	4	1长约2短约 app不需要
         url = url_shipper + 'xf/sy/busi.do?md=40&cmd=117'
         f_headers = {"token": cookie}
-        json = {"a": company_id, "b": time, "c": online, "d": sign, "e": type}
+        json = {"a": a, "b": b, "c": c, "d": d, "e": e, "f": f}
+        if d is None:
+            del json["d"]
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response

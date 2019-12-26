@@ -41,10 +41,11 @@ class MyLog(object):
             log_format = logging.Formatter(format_)  # 定义handler的输出格式
             rfhandler.setFormatter(log_format)  # 给handler添加formatter
             logger.addHandler(rfhandler)  # 给logger添加handler
+            sh = logging.StreamHandler()  # 往屏幕上输出
+            sh.setFormatter(log_format)  # 设置屏幕上显示的格式
+            logger.addHandler(sh)  # 把对象加到logger里
             # logger.removeHandler(rfhandler)
         return logger
 
-    def sendlog(self, param):
-        # 设置log和控制台输出
-        self.logger().info(param)
-        print(param)
+
+MyLog().logger()

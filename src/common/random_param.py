@@ -8,17 +8,34 @@ import datetime
 from src.common import config
 import xlrd
 import json
+import re
 
-areaCodeDict = r'地区编码'
+areaCode = r'地区编码'
+car_area = r'车牌区号'
 user_name = r'姓名'
+area_dict = r'全国地区编码'
+
+# 获取excel文件
 workbook = xlrd.open_workbook(config.get_excel())
-sheet_car = workbook.sheet_by_name('车牌区号')
+
+# 获取车牌区号
+sheet_car = workbook.sheet_by_name(car_area)
 prelist_car = sheet_car.col_values(0)
-sheet_area = workbook.sheet_by_name(r'地区编码')
+
+# 获取地区编码
+sheet_area = workbook.sheet_by_name(areaCode)
 prelist_area = sheet_area.col_values(1)
-sheet = workbook.sheet_by_name(r'姓名')
-first_name = sheet.col_values(0)
-second_name = sheet.col_values(1)
+
+# 获取姓名
+sheet_name = workbook.sheet_by_name(user_name)
+first_name = sheet_name.col_values(0)
+second_name = sheet_name.col_values(1)
+
+# 获取全国地区编码
+sheet_area_dict = workbook.sheet_by_name(area_dict)
+sheet_area_dict_nrows = sheet_area_dict.nrows
+
+# 获取图片id
 pic = random.choice(config.get_picture())
 
 
@@ -131,6 +148,20 @@ class Random_param(object):
             car_num = area_code + length_num
         return car_num
 
+    # 生成随机省市区
+    def create_area_name(self):
+        name = ""
+        for n in range(1, sheet_area_dict_nrows):
+            area_dict_info = sheet_area_dict.row_values(random.randint(1, sheet_area_dict_nrows - 1))
+            if int(area_dict_info[4]) == 3:
+                area_name = area_dict_info[7]
+                m = area_name.split(',')
+                name = m[1] + "-" + m[2] + "-" + m[3]
+                break
+            else:
+                continue
+        return name
+
     def create_car_param(self, fleet_id):
         # web车辆信息
         param = {
@@ -192,7 +223,7 @@ class Random_param(object):
                  "l": 1563984000000,
                  "p": 1563984000000,
                  "n": fleet_id,
-                 "r": random.choice([0, 2]),
+                 "r": 2,  # random.choice([0, 2])
                  "q": random.randint(1, 2)}
         c_param = bytes(json.dumps(param), encoding="utf-8")
         return c_param
@@ -214,7 +245,7 @@ class Random_param(object):
                  "l": 1563984000000,
                  "p": 1563984000000,
                  "n": fleet_id,
-                 "r": random.choice([0, 2]),
+                 "r": 2,  # random.choice([0, 2])
                  "m": random.randint(10, 99) * 1000,
                  "q": random.choice([1, 2]),
                  "t": random.choice(["1", "2", "1,2"])}
@@ -238,7 +269,7 @@ class Random_param(object):
                  "m": pic,
                  "n": pic,
                  "o": pic,
-                 "r": random.choice(["1", "2", "1,2"])
+                 "r": 2  # random.choice(["1", "2", "1,2"])
                  }
         if switch != 0:
             del param["m"]
@@ -254,7 +285,7 @@ class Random_param(object):
                  "d": 1563984000000,
                  "e": 1563984000000,
                  "f": fleet_id,
-                 "r": random.choice(["1", "2", "1,2"])
+                 "r": 2  # random.choice(["1", "2", "1,2"])
                  }
         c_param = bytes(json.dumps(param), encoding="utf-8")
         return c_param

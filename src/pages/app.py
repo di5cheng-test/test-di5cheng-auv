@@ -28,7 +28,7 @@ class Common(object):
         global response
         for n in range(20):
             result = response
-            MyLog().sendlog(result)
+            MyLog().logger().info(result)
             if result["iCmd"] != iCmd:
                 time.sleep(1)
                 continue
@@ -49,7 +49,7 @@ class Common(object):
         library.RegistNotifyCallBack(pResutFunc)
 
     def app_login_param(self, username, password):
-        param = "{w:%s,i:192.168.4.114,d:94-DE-80-77-81-F1,p:100,h:2,o:1,c:4,e:%s,l:1}" % (password, username)
+        param = "{w:%s,i:192.168.4.114,d:94-DE-80-77-81-F1,p:100,h:3,o:1,c:4,e:%s,l:1}" % (password, username)
         c_param = bytes(param, encoding="utf-8")
         return c_param
 
@@ -102,10 +102,10 @@ class Common(object):
     def goods_report(self, library, param):
         # app 货源报价
         library.SendMsgRequest.argtypes = (c_int, c_int, c_int, c_int, c_char_p, c_char_p)
-        library.SendMsgRequest(0x28, 0x21, 0, 0, param, c_back)
+        library.SendMsgRequest(40, 33, 0, 0, param, c_back)
         event.wait()
         event.clear()
-        response = self.get_response(iCmd=0x21)
+        response = self.get_response(iCmd=33)
         return response
 
     def my_report_list_param(self, a, b):
@@ -256,10 +256,10 @@ class Common(object):
     def loading_unload_upload(self, library, param):
         # app 上传装卸货磅单
         library.SendMsgRequest.argtypes = (c_int, c_int, c_int, c_int, c_char_p, c_char_p)
-        library.SendMsgRequest(0x28, 0x1A, 0, 0, param, c_back)
+        library.SendMsgRequest(40, 26, 0, 0, param, c_back)
         event.wait()
         event.clear()
-        response = self.get_response(iCmd=0x1A)
+        response = self.get_response(iCmd=26)
         return response
 
     def waillbill_agree_param(self, a):
@@ -269,10 +269,10 @@ class Common(object):
 
     def waillbill_agree(self, library, param):
         library.SendMsgRequest.argtypes = (c_int, c_int, c_int, c_int, c_char_p, c_char_p)
-        library.SendMsgRequest(0x28, 0x27, 0, 0, param, c_back)
+        library.SendMsgRequest(40, 39, 0, 0, param, c_back)
         event.wait()
         event.clear()
-        response = self.get_response(iCmd=0x27)
+        response = self.get_response(iCmd=39)
         return response
 
     def loading_unload_info_param(self, a):
@@ -283,10 +283,10 @@ class Common(object):
     def loading_unload_info(self, library, param):
         # app 装卸货磅单查询
         library.SendMsgRequest.argtypes = (c_int, c_int, c_int, c_int, c_char_p, c_char_p)
-        library.SendMsgRequest(0x28, 0x1B, 0, 0, param, c_back)
+        library.SendMsgRequest(40, 27, 0, 0, param, c_back)
         event.wait()
         event.clear()
-        response = self.get_response(iCmd=0x1B)
+        response = self.get_response(iCmd=27)
         return response
 
     def enter_driver_info_param(self, a, b, c, d, e, f, g):
@@ -323,10 +323,10 @@ class Common(object):
     def addBankaccount(self, library, param):
         # app 增加收款银行账户列表
         library.SendMsgRequest.argtypes = (c_int, c_int, c_int, c_int, c_char_p, c_char_p)
-        library.SendMsgRequest(0x28, 0x38, 0, 0, param, c_back)
+        library.SendMsgRequest(40, 56, 0, 0, param, c_back)
         event.wait()
         event.clear()
-        response = self.get_response(iCmd=0x38)
+        response = self.get_response(iCmd=56)
         return response
 
     def getBankList_params(self, a):
@@ -337,10 +337,10 @@ class Common(object):
     def getBankList(self, library, param):
         # app 获取银行账户列表
         library.SendMsgRequest.argtypes = (c_int, c_int, c_int, c_int, c_char_p, c_char_p)
-        library.SendMsgRequest(0x28, 0x39, 0, 0, param, c_back)
+        library.SendMsgRequest(40, 57, 0, 0, param, c_back)
         event.wait()
         event.clear()
-        response = self.get_response(iCmd=0x39)
+        response = self.get_response(iCmd=57)
         return response
 
     def apply_recon_fleet_params(self, a, b):
@@ -353,10 +353,10 @@ class Common(object):
     def apply_recon_fleet(self, library, param):
         # app 发起对账
         library.SendMsgRequest.argtypes = (c_int, c_int, c_int, c_int, c_char_p, c_char_p)
-        library.SendMsgRequest(0x28, 0x2A, 0, 0, param, c_back)
+        library.SendMsgRequest(40, 42, 0, 0, param, c_back)
         event.wait()
         event.clear()
-        response = self.get_response(iCmd=0x2A)
+        response = self.get_response(iCmd=42)
         return response
 
     def app_apply_contract_param(self, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,

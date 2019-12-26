@@ -37,61 +37,43 @@ def get_environment():
 
 def get_shipper_url():  # 获取url
     env = get_environment()
-    value = ""
-    if env == "TEST":
-        value = config.get("url", "URL_TEST_SHIPPER")
-    if env == "DEV":
-        value = config.get("url", "URL_DEV_SHIPPER")
-    if env == "REAL":
-        value = config.get("url", "URL_REAL_SHIPPER")
+    value = config.get("url", "URL_" + env + "_SHIPPER")
     return value
 
 
 def get_service_url():  # 获取url
     env = get_environment()
-    value = ""
-    if env == "TEST":
-        value = config.get("url", "URL_TEST_SERVICE")
-    if env == "DEV":
-        value = config.get("url", "URL_DEV_SERVICE")
-    if env == "REAL":
-        value = config.get("url", "URL_REAL_SERVICE")
+    value = config.get("url", "URL_" + env + "_SERVICE")
     return value
 
 
 def get_dispatch_url():  # 获取url
     env = get_environment()
-    value = ""
-    if env == "TEST":
-        value = config.get("url", "URL_TEST_DISPATCH")
-    if env == "DEV":
-        value = config.get("url", "URL_DEV_DISPATCH")
-    if env == "REAL":
-        value = config.get("url", "URL_REAL_DISPATCH")
+    value = config.get("url", "URL_" + env + "_DISPATCH")
     return value
 
 
 def get_finance_url():  # 获取url
     env = get_environment()
-    value = ""
-    if env == "TEST":
-        value = config.get("url", "URL_TEST_FINANCE")
-    if env == "DEV":
-        value = config.get("url", "URL_DEV_FINANCE")
-    if env == "REAL":
-        value = config.get("url", "URL_REAL_FINANCE")
+    value = config.get("url", "URL_" + env + "_FINANCE")
+    return value
+
+
+def get_operation_url():  # 获取url
+    env = get_environment()
+    value = config.get("url", "URL_" + env + "_OPERATION")
+    return value
+
+
+def get_contract_url():  # 获取url
+    env = get_environment()
+    value = config.get("url", "URL_" + env + "_CONTRACT")
     return value
 
 
 def get_app_url():  # 获取url
     env = get_environment()
-    value = ""
-    if env == "TEST":
-        value = bytes(config.get("url", "INIT_TEST"), encoding="utf-8")
-    if env == "DEV":
-        value = bytes(config.get("url", "INIT_DEV"), encoding="utf-8")
-    if env == "REAL":
-        value = bytes(config.get("url", "INIT_REAL"), encoding="utf-8")
+    value = bytes(config.get("url", "INIT_" + env), encoding="utf-8")
     return value
 
 
@@ -122,26 +104,13 @@ def get_receiver():
 
 def get_account(account_type):
     env = get_environment()
-    value = ""
-    if env == "TEST":
-        value = eval(config.get("account", (account_type+"_test")))
-    if env == "DEV":
-        value = eval(config.get("account", (account_type+"_dev")))
-    if env == "REAL":
-        value = eval(config.get("account", (account_type+"_real")))
+    value = eval(config.get("account", (account_type + "_" + env.lower())))
     return value
-
 
 
 def get_picture():
     env = get_environment()
-    value = ""
-    if env == "TEST":
-        value = config.get("picture", "JPG_TEST").split(",")
-    if env == "DEV":
-        value = config.get("picture", "JPG_DEV").split(",")
-    if env == "REAL":
-        value = config.get("picture", "JPG_REAL").split(",")
+    value = config.get("picture", "JPG_" + env).split(",")
     return value
 
 
@@ -150,8 +119,11 @@ def get_excel():
     return excel_path
 
 
-def get_library():
-    library_path = path + config.get("library", "library_path")
+def get_library(library=None):
+    if library is None:
+        library_path = path + config.get("library", "library_path")
+    else:
+        library_path = path + config.get("library", library)
     return library_path
 
 

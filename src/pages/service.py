@@ -2,13 +2,13 @@
 import requests
 import random
 import time
-from config import global_parameter
+from src.common import config
 from src.common.logger import MyLog
 
 global null
 null = None
 
-url_service = global_parameter.service
+url_service = config.get_service_url()
 
 
 class Service(object):
@@ -19,12 +19,10 @@ class Service(object):
         param = {"username": username, "password": password}
         r = requests.post(url=url, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         if "errors" in response:
-            MyLog().sendlog("登录失败")
             return response
         else:
-            MyLog().sendlog("登录成功")
             return response["data"]["login"]
 
     def service_info(self, cookie):
@@ -34,6 +32,7 @@ class Service(object):
         param = {}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
+        MyLog().logger().info(response)
         return response
 
     def service_getInquires(self, cookie, type_num, time_num):
@@ -45,6 +44,7 @@ class Service(object):
         param = {"d": type_num, "e": time_num}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
+        MyLog().logger().info(response)
         return response
 
     def offerInquire_randomparam(self, inquire_id, company_id, username, service_price=None):
@@ -60,7 +60,7 @@ class Service(object):
             del param["service_price"]
         else:
             param["service_price"] = service_price
-        MyLog().sendlog(param)
+        MyLog().logger().info(param)
         return param
 
     def service_offerInquire(self, cookie, param):
@@ -70,7 +70,7 @@ class Service(object):
         json = {"variables": {"input": param}}
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def service_getShippers(self, cookie, page, status, company_name=None):
@@ -83,7 +83,7 @@ class Service(object):
             del param["company_name"]
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def service_location(self, cookie, parent_id):
@@ -94,7 +94,7 @@ class Service(object):
         param = {"parent_id": parent_id}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def service_randomlocation(self, cookie):
@@ -112,7 +112,7 @@ class Service(object):
         area_name = area["region_name"]
         area_id = area["region_id"]
         location = province_name + "-" + city_name + "-" + area_name
-        MyLog().sendlog(location)
+        MyLog().logger().info(location)
         return location
 
     def service_fahuoparam(self, cookie, company_id, company_name):
@@ -137,7 +137,7 @@ class Service(object):
         param["send_source_num"] = random.randrange(50, 300) * 1000
         param["source_price"] = random.randrange(100, 500) * 100
         param["remark"] = "for test"
-        MyLog().sendlog(param)
+        MyLog().logger().info(param)
         return param
 
     def service_createSource(self, cookie, param):
@@ -148,7 +148,7 @@ class Service(object):
         param = {"variables": {"input": param}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def service_createservice(self, cookie, param):
@@ -158,7 +158,7 @@ class Service(object):
         param = {"variables": {"input": param}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def service_getSourcesByService(self, cookie, type_num, page, company_id=None):
@@ -172,6 +172,7 @@ class Service(object):
         f_headers = {"token": cookie}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
+        MyLog().logger().info(response)
         return response
 
     def service_getServices(self, cookie, status, region_source):
@@ -181,7 +182,7 @@ class Service(object):
         param = {"status": status, "region_source": region_source}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def service_checkShipper(self, cookie, status, goods_type, content, admin_user_id, company_id, admin_name):
@@ -193,7 +194,7 @@ class Service(object):
                       "company_id": company_id, "admin_name": admin_name}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def service_getstatements(self, cookie, g, h, f=None):
@@ -208,7 +209,7 @@ class Service(object):
             del param["f"]
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def service_statementscheck(self, cookie, a, b):
@@ -218,5 +219,5 @@ class Service(object):
         param = {"a": a, "b": b}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response

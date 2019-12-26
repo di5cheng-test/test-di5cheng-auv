@@ -17,12 +17,10 @@ class Dispatch(object):
         param = {"variables": {"input": {"username": username, "password": password}}}
         r = requests.post(url=url, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         if "errors" in response:
-            MyLog().sendlog("登录失败")
             return response
         else:
-            MyLog().sendlog("登录成功")
             return response["data"]["login"]
 
     def dispatch_dispatchInfo(self, cookie):
@@ -31,7 +29,7 @@ class Dispatch(object):
         f_headers = {"token": cookie}
         r = requests.post(url=url, headers=f_headers)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_confirmSource(self, cookie, id):
@@ -41,7 +39,7 @@ class Dispatch(object):
         param = {"variables": {"id": id, "type": 20}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getMonitorOrder(self, cookie, type_num, time_num):
@@ -53,7 +51,7 @@ class Dispatch(object):
         param = {"d": type_num, "e": time_num}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getUnconfirmOffer(self, cookie, time):
@@ -64,7 +62,7 @@ class Dispatch(object):
         param = {"e": time}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getOfferBySourceId(self, cookie, id, time):
@@ -75,7 +73,7 @@ class Dispatch(object):
         param = {"variables": {"id": id, "time": time}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_confirmOffer(self, cookie, source_id, id, type):
@@ -87,7 +85,7 @@ class Dispatch(object):
         param = {"variables": {"input": {"id": id, "source_id": source_id, "type": type}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getOrderBySourceId(self, cookie, source_id, time):
@@ -97,7 +95,7 @@ class Dispatch(object):
         param = {"a": source_id, "b": time}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getOrderinfo(self, cookie, a):
@@ -107,7 +105,7 @@ class Dispatch(object):
         param = {"a": a}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getCarsByOrderId(self, cookie, order_id, type, time):
@@ -117,7 +115,7 @@ class Dispatch(object):
         param = {"variables": {"input": {"id": order_id, "type": type, "time": time}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_confirmCar(self, cookie, car_id, type):
@@ -127,7 +125,7 @@ class Dispatch(object):
         param = {"variables": {"input": {"id": car_id, "type": type}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def carinfo_param(self, fleet_id, car_number, gua_number, m_user, m_mobile, car_ton, m_id_card, status,
@@ -153,7 +151,7 @@ class Dispatch(object):
         f_headers = {"token": cookie}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_delCarByFleet(self, cookie, fleet_id, car_id):
@@ -163,7 +161,7 @@ class Dispatch(object):
         param = {"variables": {"input": {"fleet_id": fleet_id, "car_id": car_id}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getCarsByFleetId(self, cookie, fleet_id, page):
@@ -173,7 +171,7 @@ class Dispatch(object):
         param = {"fleet_id": fleet_id, "page": page}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getFleets(self, cookie, page):
@@ -183,7 +181,7 @@ class Dispatch(object):
         param = {"variables": {"input": {"page": page}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getEvents(self, cookie, event_status, page):
@@ -194,7 +192,7 @@ class Dispatch(object):
         param = {"variables": {"input": {"event_status": event_status, "page": page}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_getEvent(self, cookie, id):
@@ -204,7 +202,7 @@ class Dispatch(object):
         param = {"variables": {"id": id}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_confirmEvent(self, cookie, goodsevent_id, event_status, event_content, admin_name):
@@ -220,7 +218,7 @@ class Dispatch(object):
                       "admin_name": admin_name}}}
         r = requests.post(url=url, headers=f_headers, json=param)
         response = eval(r.text)["data"]["data"]
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_fleet_info_param(self, fleet_name, address, contact, contact_phone, region_source, id_card,
@@ -247,7 +245,7 @@ class Dispatch(object):
             "admin_name": admin_name,  # 关联的小五username
             "admin_user_id": admin_user_id  # 关联的小五user_id
         }
-        MyLog().sendlog(param)
+        MyLog().logger().info(param)
         return param
 
     def dispatch_createFleet(self, cookie, param):
@@ -257,7 +255,7 @@ class Dispatch(object):
         json = {"variables": {"input": param}}
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         # {"data": {"code": 0}}
         return response
 
@@ -272,7 +270,7 @@ class Dispatch(object):
             del json["d"]
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_fleetlist(self, cookie, page, fleet_name=None, contact_phone=None, status=None):
@@ -291,10 +289,10 @@ class Dispatch(object):
             del json["contact_phone"]
         if status is None:
             del json["status"]
-        MyLog().sendlog(json)
+        MyLog().logger().info(json)
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispatch_carlist(self, cookie, c, a=None, b=None, d=None, e=None):
@@ -318,7 +316,7 @@ class Dispatch(object):
             del json["e"]
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response
 
     def dispacth_driverlist(self, cookie, a=None, b=None, c=None, d=None):
@@ -341,5 +339,5 @@ class Dispatch(object):
             del json["e"]
         r = requests.post(url=url, headers=f_headers, json=json)
         response = eval(r.text)
-        MyLog().sendlog(response)
+        MyLog().logger().info(response)
         return response

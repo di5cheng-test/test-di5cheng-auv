@@ -30,7 +30,6 @@ class Test_case(object):
     #     print("teardown_method(self):在每个方法之后执行")
 
     def test_case001(self):
-
         # 车队认证信息参数
         enterprise_info_param = self.common.enterprise_info_param()
         # 获取车队认证信息
