@@ -12,7 +12,7 @@ for n in range(10):
     goods_type = random.choice([1, 2, 3, 4])
     company_name = "auto" + str(int(time.time()))
     username = "自动" + str(n)
-    mobile = 13000020021 + n
+    mobile = 13000020041 + n
     password = '123456'
     id_card_pic_m = "J2066F098D0CE8054D1"
     id_card_pic_p = "J3F4B83A5F0CE805CD6"

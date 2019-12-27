@@ -9,7 +9,7 @@ global null
 null = None
 
 # 发货数量
-source_num = 2
+source_num = 10
 
 service = service_new.Service()
 service_token = service.service_login(username="songkangkang001", password="123456")

@@ -25,9 +25,13 @@ operation_token = op.operation_login(phoneNum="13327827656", passWord="123456")
 library = cdll.LoadLibrary(config.get_library())
 common = app.Common()
 common.initSDK(library=library, init_info=config.get_app_url())
+# 登出参数
+login_out_param = common.app_login_out_param()
+# 登出
+common.app_login_out(library=library, param=login_out_param)
 
-for n in range(1):
-    phone = 13000050007 + n
+for n in range(10):
+    phone = 13000050031 + n
     name = ran().create_name()
     name_2 = ran().create_name()
     code = "696969"
@@ -59,7 +63,7 @@ for n in range(1):
     # 提交认证
     approve_result = common.auv_md_40_cmd_24(library=library, param=approve_param)
     # 提取车队编号
-    fleet_id = approve_result["a"]
+    fleet_id = eval(approve_result["pBody"])["a"]
     # 运营平台获取车队详情
     fleet_info = op.operation_md_40_cmd_51(cookie=operation_token, fleet_id=fleet_id)
     # 审核通过
@@ -94,6 +98,7 @@ for n in range(1):
     login_out_param = common.app_login_out_param()
     # 登出
     common.app_login_out(library=library, param=login_out_param)
+    time.sleep(2)
 
 
 # phone = 13000050004
@@ -117,10 +122,6 @@ for n in range(1):
 # print(approve_param)
 # # 提交认证
 # common.auv_md_40_cmd_24(library=library, param=approve_param)
-# 登出参数
-login_out_param = common.app_login_out_param()
-# 登出
-common.app_login_out(library=library, param=login_out_param)
 
 # fleet_info = op.operation_md_40_cmd_51(cookie=operation_token, fleet_id="5dfae187743a4903b26f8e03")
 #

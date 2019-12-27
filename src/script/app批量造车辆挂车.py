@@ -10,7 +10,7 @@ common = app.Common()
 common.initSDK(library=library, init_info=config.get_app_url())
 
 # 登录信息参数
-login_param = common.app_login_param(username="13000030016", password="123456")
+login_param = common.app_login_param(username="133327827656", password="123456")
 # 登录
 common.app_login(library=library, param=login_param)
 # 车队认证信息参数

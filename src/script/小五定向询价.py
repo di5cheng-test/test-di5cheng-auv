@@ -20,6 +20,7 @@ if fleet_list["data"] != []:
     fleet_info = random.choice(fleet_list["data"])
     fleet_id = fleet_info["a"]
     fleet_uid = fleet_info["b"]
-    fleet_dispatch_id = random.choice(fleet_info["lst"])["a"]
+    fleet_dispatch_id = random.choice(fleet_info["lst"])["b"]
     fleet_dispatch = [{"e": fleet_id, "f": fleet_uid, "g": fleet_dispatch_id}]
+    print(fleet_dispatch)
     dispatch.dispatch_md_40_cmd_64(cookie=dispatch_token, a=source_id, d=fleet_dispatch)

@@ -11,8 +11,7 @@ library = cdll.LoadLibrary(config.get_library())
 app = auv_app_new.Common()
 app.initSDK(library=library, init_info=config.get_app_url())
 # 登录信息参数
-login_param = app.app_login_param(username=config.get_account("app")["username"],
-                                  password=config.get_account("app")["password"])
+login_param = app.app_login_param(username="13327827656", password="123456")
 # 登录
 login_info = app.app_login(library=library, param=login_param)
 user_uid = eval(login_info["pBody"])["i"]
@@ -50,7 +49,7 @@ for n in range(100):
                                                                 c=enterprise_car_num, d=enterprise)
                 # 发起报价
                 app.auv_md_40_cmd_33(library=library, param=goods_report_param)
-            # 判断是否为一口价单
+            # 判断是否为报车单
             elif source["k"] == 2:
                 # app 运力列表查看运力
                 capacity_list_param = app.auv_param_md_40_cmd_181(a=enterprise, b=0)

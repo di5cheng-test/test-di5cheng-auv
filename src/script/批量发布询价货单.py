@@ -20,7 +20,7 @@ dispatch = random.choice(dispatch_info["data"])
 dispatches = {"a": dispatch["user_id"], "b": dispatch["username"]}
 
 # 设置循环次数
-count = 1
+count = 10
 for n in range(count):
     # 货单类型
     invoice_type = random.randint(1, 2)

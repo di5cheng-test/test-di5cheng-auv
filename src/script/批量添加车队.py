@@ -5,11 +5,11 @@ from src.common.random_param import Random_param as ran
 dispatch = dispatch_new.Dispatch()
 dispatch_token = dispatch.dispatch_login(username="songkangkang002", password="123456")
 
-for n in range(2):
+for n in range(10):
     fleet_name = "auto" + str(int(time.time()))
     address = "团结路" + str(n) + "号"
     contact = ran().create_name()
-    contact_phone = 13000030016 + n
+    contact_phone = 13000050021 + n
     admin_name = "suwei002"
     admin_id = "5cd28e049f6608369dd7ea33"
     region_source = 5
